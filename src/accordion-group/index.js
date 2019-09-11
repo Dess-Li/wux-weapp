@@ -78,18 +78,19 @@ baseComponent({
                 })
             }
         },
-        emitEvent(key) {
+        emitEvent(key, index) {
             this.triggerEvent('change', {
                 key,
                 keys: this.data.keys,
+                index,
             })
         },
-        setActiveKey(activeKey) {
+        setActiveKey(activeKey, key) {
             if (!this.data.controlled) {
                 this.updated(activeKey)
             }
 
-            this.emitEvent(this.data.accordion ? activeKey[0] : activeKey)
+            this.emitEvent(this.data.accordion ? activeKey[0] : activeKey, key)
         },
         onClickItem(key) {
             let activeKey = [...this.data.activeKey]
@@ -100,7 +101,7 @@ baseComponent({
                 activeKey = activeKey.indexOf(key) !== -1 ? activeKey.filter((n) => n !== key) : [...activeKey, key]
             }
 
-            this.setActiveKey(activeKey)
+            this.setActiveKey(activeKey, key)
         },
     },
     ready() {
